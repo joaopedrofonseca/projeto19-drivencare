@@ -1,3 +1,4 @@
+import patientRoutes from "../routes/patientRoutes.js"
 import patientServices from "../services/patientServices.js"
 
 async function create(req, res, next) {
@@ -19,4 +20,14 @@ async function login(req, res, next) {
         next(err)
     }
 }
-export default { create, login }
+
+async function searchdoctors(req, res, next) {
+    const { name, location, specialty } = req.query
+    try {
+        const doctors = await patientServices.searchdoctors({ name, location, specialty })
+        return res.send({ doctors })
+    } catch (err) {
+        next(err)
+    }
+}
+export default { create, login, searchdoctors }

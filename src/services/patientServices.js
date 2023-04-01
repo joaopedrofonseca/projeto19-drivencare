@@ -22,6 +22,18 @@ async function login({ email, password }) {
     return token
 }
 
+async function searchdoctors({name, location, specialty}){
+    if (name){
+        const doctors = await patientRepository.searchDoctorByName({name})
+    } else if (location){
+        const doctors = await patientRepository.searchDoctorByLocation({location})
+    } else {
+        const doctors = await patientRepository.searchDoctorBySpecialty({specialty})
+    }
+
+    return doctors
+}
+
 export default {
-    create, login
+    create, login, searchdoctors
 }

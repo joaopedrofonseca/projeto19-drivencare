@@ -20,10 +20,25 @@ async function createSession({ token, userId }) {
     return await connectionDb.query(`INSERT INTO patients_session (patient_id, token) VALUES ($1, $2);`, [userId, token])
 }
 
+async function searchDoctorByName({name}){
+    return await connectionDb.query(`SELECT * FROM 'doctors' WHERE name=$1;`, [name])
+}
+
+async function searchDoctorBySpecialty({specialty}){
+    return await connectionDb.query(`SELECT * FROM 'doctors' WHERE specialty=$1;`, [specialty])
+}
+
+async function searchDoctorByLocation({location}){
+    return await connectionDb.query(`SELECT * FROM 'doctors' WHERE location=$1;`, [location])
+}
+
 export default {
     findEmail,
     signup,
     findSessionByToken,
     findById,
-    createSession
+    createSession,
+    searchDoctorByLocation,
+    searchDoctorByName,
+    searchDoctorBySpecialty
 }
