@@ -1,7 +1,7 @@
 import connectionDb from "../config/database.js";
 
 async function findEmail(email) {
-    return await connectionDb.query(`SELECT * FROM patients WHERE email=$1;`, [email])
+    return await connectionDb.query(`SELECT * FROM patients WHERE email=select id,name,email from doctors where email=$1 union select id,name,email from patients where email=$1;`, [email])
 }
 
 async function signup({ name, email, password }) {
